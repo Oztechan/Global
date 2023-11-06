@@ -1,6 +1,10 @@
 group:
-  # test doc
+  # Docs
   - files:
       - source: docs/CONTRIBUTING.md
+      - source: docs/ISSUE_TEMPLATE.md
+      - source: docs/PULL_REQUEST_TEMPLATE.md
     repos: |
+      Oztechan/CCC
+      Oztechan/Tracefit
       Oztechan/actions
