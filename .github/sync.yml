@@ -8,3 +8,12 @@ group:
       Oztechan/CCC
       Oztechan/Tracefit
       Oztechan/actions
+
+  # .github
+  - files:
+      - source: .github/auto_assign.yml
+      - source: .github/CODEOWNERS
+    repos: |
+      Oztechan/CCC
+      Oztechan/Tracefit
+      Oztechan/actions

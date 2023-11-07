@@ -5,7 +5,7 @@ on:
       - develop
   workflow_dispatch:
 jobs:
-  sync:
+  GlobalConfigUpdate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
