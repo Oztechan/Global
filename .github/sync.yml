@@ -17,3 +17,11 @@ group:
       Oztechan/CCC
       Oztechan/Tracefit
       Oztechan/actions
+
+  # Code Quality
+  - files:
+      - source: codecov.yml
+      - source: detekt.yml
+    repos: |
+      Oztechan/CCC
+      Oztechan/Tracefit
