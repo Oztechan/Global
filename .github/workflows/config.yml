@@ -16,4 +16,4 @@ jobs:
         with:
           GH_PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           PR_LABELS: "config"
-          COMMIT_PREFIX: "Oztechan/Config#4 Global config update"
+          COMMIT_PREFIX: "[Oztechan/Config#4] Global config update"
