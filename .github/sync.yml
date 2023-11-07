@@ -25,3 +25,11 @@ group:
     repos: |
       Oztechan/CCC
       Oztechan/Tracefit
+
+  # Dependency Update
+  - files:
+      - source: renovate.json
+    repos: |
+      Oztechan/CCC
+      Oztechan/Tracefit
+      Oztechan/actions
