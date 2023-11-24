@@ -44,3 +44,8 @@ Oztechan/TraceFit:
     template:
       repository:
         name: 'TraceFit'
+Oztechan/actions:
+  - source: docs/
+    template:
+      repository:
+        name: 'actions'

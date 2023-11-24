@@ -38,7 +38,7 @@ Example:
 
 ### Description
 
-Description has to have `Resloves Oztechan/REPO_NAME#ISSUE_ID` with relevant issue. It will help automatically close relevant issue once the PR is merged.
+Description has to have `Resloves Oztechan/{{ repository.name }}#ISSUE_ID` with relevant issue. It will help automatically close relevant issue once the PR is merged.
 
 Example:
 
