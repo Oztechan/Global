@@ -1,9 +1,8 @@
 group:
   # Docs
   - files:
-      - source: docs/CONTRIBUTING.md
-      - source: docs/ISSUE_TEMPLATE.md
-      - source: docs/PULL_REQUEST_TEMPLATE.md
+      - source: docs/
+        template: true
     repos: |
       Oztechan/CCC
       Oztechan/Tracefit
@@ -33,3 +32,20 @@ group:
       Oztechan/CCC
       Oztechan/Tracefit
       Oztechan/actions
+
+Oztechan/CCC:
+  - source: docs/
+    template:
+      repository:
+        name: 'CCC'
+
+Oztechan/TraceFit:
+  - source: docs/
+    template:
+      repository:
+        name: 'TraceFit'
+Oztechan/actions:
+  - source: docs/
+    template:
+      repository:
+        name: 'actions'
