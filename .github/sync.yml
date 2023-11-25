@@ -20,10 +20,6 @@ group:
       Oztechan/CCC
       Oztechan/Tracefit
       Oztechan/actions
-      SubMob/BaseMob
-      SubMob/ScopeMob
-      SubMob/LogMob
-      SubMob/ParserMob
 
   # Code Quality
   - files:
