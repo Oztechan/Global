@@ -17,7 +17,7 @@ Every commit message should match the following format `[{{ repository.owner }}/
 Example:
 
 ```
-[Oztechan/Global#123] My cool feature
+[{{ repository.owner }}/{{ repository.name }}#ISSUE_ID] My cool feature
 ```
 
 ## Pull Request
@@ -33,17 +33,17 @@ Pull Request title should follow below format:
 Example:
 
 ```
-[Oztechan/Global#123] Whatever the name of ticket is
+[{{ repository.owner }}/{{ repository.name }}#ISSUE_ID] Whatever the name of ticket is
 ```
 
 ### Description
 
-Description has to have `Resloves {{ repository.owner }}/{{ repository.name }}#ISSUE_ID` with relevant issue. It will help automatically close relevant issue once the PR is merged.
+Description has to have `Resolves {{ repository.owner }}/{{ repository.name }}#ISSUE_ID` with relevant issue. It will help automatically close relevant issue once the PR is merged.
 
 Example:
 
 ```
-Resolves Oztechan/Global#123
+Resolves {{ repository.owner }}/{{ repository.name }}l#123
 
 Some description.
 ```

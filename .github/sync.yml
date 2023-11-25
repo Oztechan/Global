@@ -55,28 +55,35 @@ Oztechan/TraceFit:
         name: 'TraceFit'
         owner: "Oztechan"
 
-Oztechan/BaseMob:
+Oztechan/Global:
+  - source: docs/
+    template:
+      repository:
+        name: 'Global'
+        owner: "Oztechan"
+
+SubMob/BaseMob:
   - source: docs/
     template:
       repository:
         name: 'BaseMob'
         owner: "SubMob"
 
-Oztechan/ScopeMob:
+SubMob/ScopeMob:
   - source: docs/
     template:
       repository:
         name: 'ScopeMob'
         owner: "SubMob"
 
-Oztechan/LogMob:
+SubMob/LogMob:
   - source: docs/
     template:
       repository:
         name: 'LogMob'
         owner: "SubMob"
 
-Oztechan/ParserMob:
+SubMob/ParserMob:
   - source: docs/
     template:
       repository:
