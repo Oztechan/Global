@@ -7,6 +7,10 @@ group:
       Oztechan/CCC
       Oztechan/Tracefit
       Oztechan/actions
+      SubMob/BaseMob
+      SubMob/ScopeMob
+      SubMob/LogMob
+      SubMob/ParserMob
 
   # .github
   - files:
@@ -16,6 +20,10 @@ group:
       Oztechan/CCC
       Oztechan/Tracefit
       Oztechan/actions
+      SubMob/BaseMob
+      SubMob/ScopeMob
+      SubMob/LogMob
+      SubMob/ParserMob
 
   # Code Quality
   - files:
@@ -32,18 +40,53 @@ group:
       Oztechan/CCC
       Oztechan/Tracefit
       Oztechan/actions
+      SubMob/BaseMob
+      SubMob/ScopeMob
+      SubMob/LogMob
+      SubMob/ParserMob
 
 Oztechan/CCC:
   - source: docs/
     template:
       repository:
         name: 'CCC'
+        owner: "Oztechan"
 
 Oztechan/TraceFit:
   - source: docs/
     template:
       repository:
         name: 'TraceFit'
+        owner: "Oztechan"
+
+Oztechan/BaseMob:
+  - source: docs/
+    template:
+      repository:
+        name: 'BaseMob'
+        owner: "SubMob"
+
+Oztechan/ScopeMob:
+  - source: docs/
+    template:
+      repository:
+        name: 'ScopeMob'
+        owner: "SubMob"
+
+Oztechan/LogMob:
+  - source: docs/
+    template:
+      repository:
+        name: 'LogMob'
+        owner: "SubMob"
+
+Oztechan/ParserMob:
+  - source: docs/
+    template:
+      repository:
+        name: 'ParserMob'
+        owner: "SubMob"
+
 Oztechan/actions:
   - source: docs/
     template:
