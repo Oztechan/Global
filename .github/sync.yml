@@ -55,6 +55,13 @@ Oztechan/TraceFit:
         name: 'TraceFit'
         owner: "Oztechan"
 
+Oztechan/actions:
+  - source: docs/
+    template:
+      repository:
+        name: 'actions'
+        owner: "Oztechan"
+
 SubMob/BaseMob:
   - source: docs/
     template:
@@ -82,9 +89,3 @@ SubMob/ParserMob:
       repository:
         name: 'ParserMob'
         owner: "SubMob"
-
-Oztechan/actions:
-  - source: docs/
-    template:
-      repository:
-        name: 'actions'

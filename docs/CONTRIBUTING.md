@@ -43,7 +43,7 @@ Description has to have `Resolves {{ repository.owner }}/{{ repository.name }}#I
 Example:
 
 ```
-Resolves {{ repository.owner }}/{{ repository.name }}l#123
+Resolves {{ repository.owner }}/{{ repository.name }}#123
 
 Some description.
 ```
