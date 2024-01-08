@@ -6,7 +6,6 @@ group:
     repos: |
       Oztechan/CCC
       Oztechan/Tracefit
-      Oztechan/actions
       SubMob/BaseMob
       SubMob/ScopeMob
       SubMob/LogMob
@@ -19,7 +18,6 @@ group:
     repos: |
       Oztechan/CCC
       Oztechan/Tracefit
-      Oztechan/actions
 
   # Code Quality
   - files:
@@ -35,7 +33,6 @@ group:
     repos: |
       Oztechan/CCC
       Oztechan/Tracefit
-      Oztechan/actions
       SubMob/BaseMob
       SubMob/ScopeMob
       SubMob/LogMob
@@ -53,13 +50,6 @@ Oztechan/TraceFit:
     template:
       repository:
         name: 'TraceFit'
-        owner: "Oztechan"
-
-Oztechan/actions:
-  - source: docs/
-    template:
-      repository:
-        name: 'actions'
         owner: "Oztechan"
 
 SubMob/BaseMob:
