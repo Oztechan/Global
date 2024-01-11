@@ -45,7 +45,7 @@ jobs:
           custom_field_values: '[{\"name\": \"Iteration\",\"type\": \"iteration\",\"value\": \"@current\"}]'
 
       - name: 'Add config PR to "🏗 PR Review"'
-        if: github.event_name == 'pull_request' && && github.event.pull_request.head.ref == 'repo-sync/Global/default' && (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
+        if: github.event_name == 'pull_request' && && github.head_ref == 'repo-sync/Global/default' && (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
         uses: leonsteinhaeuser/project-beta-automations@v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
