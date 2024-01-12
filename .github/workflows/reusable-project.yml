@@ -80,10 +80,3 @@ jobs:
           resource_node_id: ${{ github.event.pull_request.node_id }}
           status_value: "✅ Done"
           move_related_issues: true
-
-      - name: Set milestone if exist
-        if: "${{ github.event.inputs.milestone != '' }}"
-        uses: zoispag/action-assign-milestone@v1
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          milestone: ${{ github.event.inputs.milestone }}
