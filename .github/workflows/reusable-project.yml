@@ -6,6 +6,9 @@ on:
       project_id:
         required: true
         type: string
+      milestone:
+        required: true
+        type: string
 
 jobs:
   ProjectAutomations:
@@ -22,7 +25,7 @@ jobs:
           project_id: ${{ inputs.project_id }}
           resource_node_id: ${{ github.event.issue.node_id }}
           operation_mode: custom_field
-          custom_field_values: '[{\"name\": \"Iteration\",\"type\": \"iteration\",\"value\": \"@current\"}]'
+          custom_field_values: '[{\"name\": \"Milestone\",\"type\": \"text\",\"value\": \"${{ github.event.inputs.milestone }}\"}]'
 
       - name: 'Move Related Issue to "🏗 PR Review"'
         if: |
@@ -49,7 +52,7 @@ jobs:
           project_id: ${{ inputs.project_id }}
           resource_node_id: ${{ github.event.pull_request.node_id }}
           operation_mode: custom_field
-          custom_field_values: '[{\"name\": \"Iteration\",\"type\": \"iteration\",\"value\": \"@current\"}]'
+          custom_field_values: '[{\"name\": \"Milestone\",\"type\": \"text\",\"value\": \"${{ github.event.inputs.milestone }}\"}]'
 
       - name: 'Move Related Issue to "🚧 In Progress"'
         if: |
@@ -77,3 +80,10 @@ jobs:
           resource_node_id: ${{ github.event.pull_request.node_id }}
           status_value: "✅ Done"
           move_related_issues: true
+
+      - name: Set milestone if exist
+        if: "${{ github.event.inputs.milestone != '' }}"
+        uses: zoispag/action-assign-milestone@v1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          milestone: ${{ github.event.inputs.milestone }}
