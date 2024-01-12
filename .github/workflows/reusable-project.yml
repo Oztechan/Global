@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Add issue to project'
-        if: github.event_name == 'issues' && (github.event.action == 'opened' ||  github.event.action == 'reopened')
+        if: |
+          github.event_name == 'issues' &&
+          (github.event.action == 'opened' ||  github.event.action == 'reopened')
         uses: leonsteinhaeuser/project-beta-automations@v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -23,7 +25,9 @@ jobs:
           custom_field_values: '[{\"name\": \"Iteration\",\"type\": \"iteration\",\"value\": \"@current\"}]'
 
       - name: 'Move Related Issue to "🏗 PR Review"'
-        if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
+        if: |
+          github.event_name == 'pull_request' &&
+          (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
         uses: leonsteinhaeuser/project-beta-automations@v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -33,19 +37,11 @@ jobs:
           status_value: "🏗 PR Review"
           move_related_issues: true
 
-      - name: 'Add Dependency PR by renovate to "🏗 PR Review"'
-        if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]' && (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
-        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
-        with:
-          gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          organization: Oztechan
-          project_id: ${{ inputs.project_id }}
-          resource_node_id: ${{ github.event.pull_request.node_id }}
-          operation_mode: custom_field
-          custom_field_values: '[{\"name\": \"Iteration\",\"type\": \"iteration\",\"value\": \"@current\"}]'
-
-      - name: 'Add config PR to "🏗 PR Review"'
-        if: github.event_name == 'pull_request' && github.head_ref == 'repo-sync/Global/default' && (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
+      - name: 'Add dependency or config PR to "🏗 PR Review"'
+        if: |
+          github.event_name == 'pull_request' &&
+          (github.event.pull_request.user.login == 'renovate[bot]' || github.head_ref == 'repo-sync/Global/default') &&
+          (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
         uses: leonsteinhaeuser/project-beta-automations@v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -56,7 +52,9 @@ jobs:
           custom_field_values: '[{\"name\": \"Iteration\",\"type\": \"iteration\",\"value\": \"@current\"}]'
 
       - name: 'Move Related Issue to "🚧 In Progress"'
-        if: github.event_name == 'pull_request' && github.event.action == 'converted_to_draft'
+        if: |
+          github.event_name == 'pull_request' &&
+          github.event.action == 'converted_to_draft'
         uses: leonsteinhaeuser/project-beta-automations@v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -67,7 +65,10 @@ jobs:
           move_related_issues: true
 
       - name: 'Move Related Issue to "✅ Done"'
-        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+        if: |
+          github.event_name == 'pull_request' &&
+          github.event.action == 'closed' &&
+          github.event.pull_request.merged == true
         uses: leonsteinhaeuser/project-beta-automations@v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
