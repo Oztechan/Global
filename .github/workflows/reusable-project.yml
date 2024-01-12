@@ -83,7 +83,7 @@ jobs:
 
       - name: Set milestone if exist
         if: "${{ github.event.inputs.milestone != '' }}"
-        uses: zoispag/action-assign-milestone@v1
+        uses: zoispag/action-assign-milestone@v2
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           milestone: ${{ github.event.inputs.milestone }}
