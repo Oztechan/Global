@@ -13,12 +13,6 @@ on:
       - converted_to_draft
 
 jobs:
-  milestone:
-      runs-on: ubuntu-latest
-      steps: [ run: echo ]
-      outputs:
-        value: ${{ secrets.MILESTONE }}
-
   ProjectAutomations:
     uses: Oztechan/Global/.github/workflows/reusable-project.yml@develop
     with:
