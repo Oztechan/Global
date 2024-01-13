@@ -21,8 +21,6 @@ jobs:
           organization: Oztechan
           project_id: ${{ inputs.project_id }}
           resource_node_id: ${{ github.event.issue.node_id }}
-          operation_mode: custom_field
-          custom_field_values: '[{\"name\": \"Milestone\",\"type\": \"text\",\"value\": \"${{ secrets.MILESTONE }}\"}]'
 
       - name: 'Move Related Issue to "🏗 PR Review"'
         if: |
@@ -48,8 +46,6 @@ jobs:
           organization: Oztechan
           project_id: ${{ inputs.project_id }}
           resource_node_id: ${{ github.event.pull_request.node_id }}
-          operation_mode: custom_field
-          custom_field_values: '[{\"name\": \"Milestone\",\"type\": \"text\",\"value\": \"${{ secrets.MILESTONE }}\"}]'
 
       - name: 'Move Related Issue to "🚧 In Progress"'
         if: |
@@ -77,3 +73,19 @@ jobs:
           resource_node_id: ${{ github.event.pull_request.node_id }}
           status_value: "✅ Done"
           move_related_issues: true
+
+      - name: 'Set milestone'
+        if: |
+          (
+          github.event_name == 'issues' &&
+          (github.event.action == 'opened' ||  github.event.action == 'reopened')
+          ) ||
+          (
+          github.event_name == 'pull_request' &&
+          (github.event.pull_request.user.login == 'renovate[bot]' || github.head_ref == 'repo-sync/Global/default') &&
+          (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
+          )
+        uses: zoispag/action-assign-milestone@v2.1.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          milestone: "${{ secrets.MILESTONE }}"
