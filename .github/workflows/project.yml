@@ -23,5 +23,4 @@ jobs:
     uses: Oztechan/Global/.github/workflows/reusable-project.yml@develop
     with:
       project_id: 8
-      milestone: ${{ needs.milestone.outputs.value }}
     secrets: inherit
