@@ -6,9 +6,9 @@ on:
       project_id:
         required: true
         type: string
-
-env:
-  MILESTONE: ${{ secrets.MILESTONE }}
+      milestone:
+        required: true
+        type: string
 
 jobs:
   ProjectAutomations:
@@ -25,7 +25,7 @@ jobs:
           project_id: ${{ inputs.project_id }}
           resource_node_id: ${{ github.event.issue.node_id }}
           operation_mode: custom_field
-          custom_field_values: '[{\"name\": \"Milestone\",\"type\": \"text\",\"value\": \"${{ MILESTONE }}\"}]'
+          custom_field_values: '[{\"name\": \"Milestone\",\"type\": \"text\",\"value\": \"${{ inputs.milestone }}\"}]'
 
       - name: 'Move Related Issue to "🏗 PR Review"'
         if: |
@@ -52,7 +52,7 @@ jobs:
           project_id: ${{ inputs.project_id }}
           resource_node_id: ${{ github.event.pull_request.node_id }}
           operation_mode: custom_field
-          custom_field_values: '[{\"name\": \"Milestone\",\"type\": \"text\",\"value\": \"${{ MILESTONE }}\"}]'
+          custom_field_values: '[{\"name\": \"Milestone\",\"type\": \"text\",\"value\": \"${{ inputs.milestone }}\"}]'
 
       - name: 'Move Related Issue to "🚧 In Progress"'
         if: |
