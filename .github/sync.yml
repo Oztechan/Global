@@ -1,0 +1,81 @@
+group:
+  # Docs
+  - files:
+      - source: docs/
+        template: true
+    repos: |
+      Oztechan/CCC
+      Oztechan/Tracefit
+      SubMob/BaseMob
+      SubMob/ScopeMob
+      SubMob/LogMob
+      SubMob/ParserMob
+
+  # .github
+  - files:
+      - source: .github/auto_assign.yml
+      - source: .github/CODEOWNERS
+    repos: |
+      Oztechan/CCC
+      Oztechan/Tracefit
+
+  # Code Quality
+  - files:
+      - source: codecov.yml
+      - source: detekt.yml
+    repos: |
+      Oztechan/CCC
+      Oztechan/Tracefit
+
+  # Dependency Update
+  - files:
+      - source: renovate.json
+    repos: |
+      Oztechan/CCC
+      Oztechan/Tracefit
+      SubMob/BaseMob
+      SubMob/ScopeMob
+      SubMob/LogMob
+      SubMob/ParserMob
+
+Oztechan/CCC:
+  - source: docs/
+    template:
+      repository:
+        name: 'CCC'
+        owner: "Oztechan"
+
+Oztechan/TraceFit:
+  - source: docs/
+    template:
+      repository:
+        name: 'TraceFit'
+        owner: "Oztechan"
+
+SubMob/BaseMob:
+  - source: docs/
+    template:
+      repository:
+        name: 'BaseMob'
+        owner: "SubMob"
+
+SubMob/ScopeMob:
+  - source: docs/
+    template:
+      repository:
+        name: 'ScopeMob'
+        owner: "SubMob"
+
+SubMob/LogMob:
+  - source: docs/
+    template:
+      repository:
+        name: 'LogMob'
+        owner: "SubMob"
+
+SubMob/ParserMob:
+  - source: docs/
+    template:
+      repository:
+        name: 'ParserMob'
+        owner: "SubMob"
