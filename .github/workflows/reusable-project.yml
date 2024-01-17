@@ -21,6 +21,8 @@ jobs:
           organization: Oztechan
           project_id: ${{ inputs.project_id }}
           resource_node_id: ${{ github.event.issue.node_id }}
+          operation_mode: custom_field
+          custom_field_values: '[{\"name\": \"Version\",\"type\": \"single_select\",\"value\": \"${{ secrets.NEXT_VERSION }}\"}]'
 
       - name: 'Move Related Issue to "🏗 PR Review"'
         if: |
