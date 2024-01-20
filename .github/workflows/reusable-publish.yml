@@ -2,6 +2,10 @@ name: Publish Release
 
 on:
   workflow_call:
+    inputs:
+      slack_channel:
+        required: true
+        type: string
 
 jobs:
 
@@ -33,6 +37,6 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
-          channel: ccc-github
+          channel: ${{ inputs.slack_channel }}
           status: FAILED
           color: danger

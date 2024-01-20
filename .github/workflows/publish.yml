@@ -9,4 +9,6 @@ jobs:
 
   PublishRelease:
     uses: Oztechan/Global/.github/workflows/reusable-publish.yml@develop
+    with:
+      slack_channel: "global-github"
     secrets: inherit
