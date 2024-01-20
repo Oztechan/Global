@@ -1,0 +1,12 @@
+name: Publish Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+
+  PublishRelease:
+    uses: Oztechan/Global/.github/workflows/reusable-publish.yml@develop
+    secrets: inherit
