@@ -1,16 +1,4 @@
 group:
-  # Docs
-  - files:
-      - source: docs/
-        template: true
-    repos: |
-      Oztechan/CCC
-      Oztechan/Tracefit
-      SubMob/BaseMob
-      SubMob/ScopeMob
-      SubMob/LogMob
-      SubMob/ParserMob
-
   # .github
   - files:
       - source: .github/auto_assign.yml
