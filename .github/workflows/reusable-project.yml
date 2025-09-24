@@ -9,10 +9,8 @@ on:
     secrets:
       PERSONAL_ACCESS_TOKEN:
         required: true
-        type: string
       NEXT_VERSION:
         required: true
-        type: string
 
 jobs:
   ProjectAutomations:
