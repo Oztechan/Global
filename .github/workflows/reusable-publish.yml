@@ -9,10 +9,8 @@ on:
     secrets:
       SLACK_BOT_TOKEN:
         required: true
-        type: string
       GITHUB_TOKEN:
         required: true
-        type: string
 
 jobs:
 
