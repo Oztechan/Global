@@ -8,9 +8,9 @@ on:
         type: string
     secrets:
       PERSONAL_ACCESS_TOKEN:
-        required: true
+        required: false
       NEXT_VERSION:
-        required: true
+        required: false
 
 jobs:
   ProjectAutomations:
