@@ -9,6 +9,8 @@ on:
     secrets:
       SLACK_BOT_TOKEN:
         required: true
+      GITHUB_TOKEN:
+        required: true
 
 jobs:
 
