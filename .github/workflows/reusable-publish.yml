@@ -9,7 +9,7 @@ on:
     secrets:
       SLACK_BOT_TOKEN:
         required: true
-      GITHUB_TOKEN:
+      REPO_TOKEN:
         required: true
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
       - name: PublishRelease
         uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.REPO_TOKEN }}
           prerelease: false
 
       - name: Set Job Status
