@@ -29,7 +29,7 @@
         "repositoryURL = \"https://github.com/(?<owner>[^/]+)/(?<repo>[^\"/]+?)(?:\\.git)?\";\\s*requirement = \\{\\s*kind = exactVersion;\\s*version = (?<currentValue>[^;]+);"
       ],
       "datasourceTemplate": "github-tags",
-      "depNameTemplate": "{{owner}}/{{repo}}"
+      "depNameTemplate": "{{repository.owner}}/{{repository.name}}"
     }
   ],
   "packageRules": [
