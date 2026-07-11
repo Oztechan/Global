@@ -6,6 +6,7 @@ Oztechan/Global:
         name: 'Global'
         owner: "Oztechan"
         dependencyIssueId: "12"
+        iosProjectPath: '^$' # no iOS project — never matches
   - source: relative/docs/
     dest: docs/
     template:
@@ -21,6 +22,7 @@ Oztechan/CCC:
         name: 'CCC'
         owner: "Oztechan"
         dependencyIssueId: "1457"
+        iosProjectPath: '^ios/CCC\\.xcodeproj/project\\.pbxproj$'
   - source: relative/docs/
     dest: docs/
     template:
@@ -40,6 +42,7 @@ Oztechan/TraceFit:
         name: 'TraceFit'
         owner: "Oztechan"
         dependencyIssueId: "11"
+        iosProjectPath: '^ios/TraceFit\\.xcodeproj/project\\.pbxproj$'
   - source: relative/docs/
     dest: docs/
     template:
@@ -59,6 +62,7 @@ Oztechan/AdTrack:
         name: 'AdTrack'
         owner: "Oztechan"
         dependencyIssueId: "41"
+        iosProjectPath: '^iosApp/iosApp\\.xcodeproj/project\\.pbxproj$'
   - source: relative/docs/
     dest: docs/
     template:
@@ -78,6 +82,7 @@ SubMob/BaseMob:
         name: 'BaseMob'
         owner: "SubMob"
         dependencyIssueId: "32"
+        iosProjectPath: '^$' # no iOS project — never matches
   - source: relative/docs/
     dest: docs/
     template:
@@ -95,6 +100,7 @@ SubMob/ScopeMob:
         name: 'ScopeMob'
         owner: "SubMob"
         dependencyIssueId: "32"
+        iosProjectPath: '^$' # no iOS project — never matches
   - source: relative/docs/
     dest: docs/
     template:
@@ -112,6 +118,7 @@ SubMob/LogMob:
         name: 'LogMob'
         owner: "SubMob"
         dependencyIssueId: "27"
+        iosProjectPath: '^$' # no iOS project — never matches
   - source: relative/docs/
     dest: docs/
     template:
@@ -129,6 +136,7 @@ SubMob/ParserMob:
         name: 'ParserMob'
         owner: "SubMob"
         dependencyIssueId: "27"
+        iosProjectPath: '^$' # no iOS project — never matches
   - source: relative/docs/
     dest: docs/
     template:
