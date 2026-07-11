@@ -25,10 +25,9 @@
         "{{ repository.iosProjectPath }}"
       ],
       "matchStrings": [
-        "repositoryURL = \"https://github.com/(?<owner>[^/]+)/(?<repo>[^\"/]+?)(?:\\.git)?\";\\s*requirement = \\{\\s*kind = exactVersion;\\s*version = (?<currentValue>[^;]+);"
+        "repositoryURL = \"https://github.com/(?<depName>[^/]+/[^\"/]+?)(?:\\.git)?\";\\s*requirement = \\{\\s*kind = exactVersion;\\s*version = (?<currentValue>[^;]+);"
       ],
-      "datasourceTemplate": "github-tags",
-      "depNameTemplate": "{{repository.owner}}/{{repository.name}}"
+      "datasourceTemplate": "github-tags"
     }
   ],
   "packageRules": [
