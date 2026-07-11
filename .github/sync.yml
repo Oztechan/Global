@@ -51,6 +51,25 @@ Oztechan/TraceFit:
   - source: .github/auto_assign.yml
   - source: .github/CODEOWNERS
 
+Oztechan/AdTrack:
+  - source: relative/renovate.json
+    dest: renovate.json
+    template:
+      repository:
+        name: 'AdTrack'
+        owner: "Oztechan"
+        dependencyIssueId: "41"
+  - source: relative/docs/
+    dest: docs/
+    template:
+      repository:
+        name: 'AdTrack'
+        owner: "Oztechan"
+  - source: codecov.yml
+  - source: detekt.yml
+  - source: .github/auto_assign.yml
+  - source: .github/CODEOWNERS
+
 SubMob/BaseMob:
   - source: relative/renovate.json
     dest: renovate.json
