@@ -19,11 +19,10 @@
     "enabled": true,
     "commitMessageAction": "[{{ repository.owner }}/{{ repository.name }}#{{ repository.dependencyIssueId }}] Lock file maintenance"
   },
-  "customManagers": [
+  "regexManagers": [
     {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^ios/CCC\\.xcodeproj/project\\.pbxproj$/"
+      "fileMatch": [
+        "{{ repository.iosProjectPath }}"
       ],
       "matchStrings": [
         "repositoryURL = \"https://github.com/(?<owner>[^/]+)/(?<repo>[^\"/]+?)(?:\\.git)?\";\\s*requirement = \\{\\s*kind = exactVersion;\\s*version = (?<currentValue>[^;]+);"
