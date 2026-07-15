@@ -9,13 +9,30 @@ on:
     secrets:
       PERSONAL_ACCESS_TOKEN:
         required: false
-      NEXT_VERSION:
-        required: false
 
 jobs:
   ProjectAutomations:
     runs-on: ubuntu-24.04
     steps:
+      # The nearest open milestone = the lowest version among the repo's open milestones (the soonest
+      # release). Assigned natively below so the project's built-in Milestone field reflects it — this
+      # replaces the old NEXT_VERSION-driven custom "Version" field.
+      - name: 'Determine nearest open milestone'
+        id: milestone
+        if: |
+          (github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'reopened')) ||
+          (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened'))
+        env:
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: |
+          title=$(gh api "repos/${{ github.repository }}/milestones?state=open&per_page=100" --jq '.[].title' | sort -V | head -n1)
+          echo "title=$title" >> "$GITHUB_OUTPUT"
+          if [ -n "$title" ]; then
+            echo "Nearest open milestone: $title"
+          else
+            echo "No open milestone in ${{ github.repository }} — milestone assignment will be skipped."
+          fi
+
       - name: 'Add issue to project'
         if: |
           github.event_name == 'issues' &&
@@ -26,8 +43,19 @@ jobs:
           organization: Oztechan
           project_id: ${{ inputs.project_id }}
           resource_node_id: ${{ github.event.issue.node_id }}
-          operation_mode: custom_field
-          custom_field_values: '[{\"name\": \"Version\",\"type\": \"single_select\",\"value\": \"${{ secrets.NEXT_VERSION }}\"}]'
+          status_value: "📖 To do"
+
+      # Only when the issue has no milestone yet, so a manual choice is never overridden.
+      - name: 'Assign issue to nearest open milestone'
+        if: |
+          github.event_name == 'issues' &&
+          (github.event.action == 'opened' || github.event.action == 'reopened') &&
+          github.event.issue.milestone == null &&
+          steps.milestone.outputs.title != ''
+        env:
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: |
+          gh issue edit "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --milestone "${{ steps.milestone.outputs.title }}"
 
       - name: 'Move Related Issue to "🏗 PR Review"'
         if: |
@@ -42,6 +70,19 @@ jobs:
           status_value: "🏗 PR Review"
           move_related_issues: true
 
+      # Same nearest-milestone default for PRs; you can manually move a PR to a later milestone if it
+      # won't make the current one. Never overrides a milestone already set.
+      - name: 'Assign PR to nearest open milestone'
+        if: |
+          github.event_name == 'pull_request' &&
+          (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened') &&
+          github.event.pull_request.milestone == null &&
+          steps.milestone.outputs.title != ''
+        env:
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: |
+          gh pr edit "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" --milestone "${{ steps.milestone.outputs.title }}"
+
       - name: 'Add dependency or config PR to "🏗 PR Review"'
         if: |
           github.event_name == 'pull_request' &&
@@ -53,8 +94,7 @@ jobs:
           organization: Oztechan
           project_id: ${{ inputs.project_id }}
           resource_node_id: ${{ github.event.pull_request.node_id }}
-          operation_mode: custom_field
-          custom_field_values: '[{\"name\": \"Version\",\"type\": \"single_select\",\"value\": \"${{ secrets.NEXT_VERSION }}\"}]'
+          status_value: "🏗 PR Review"
 
       - name: 'Move Related Issue to "🚧 In Progress"'
         if: |
