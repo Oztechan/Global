@@ -16,5 +16,5 @@ jobs:
   ProjectAutomations:
     uses: Oztechan/Global/.github/workflows/reusable-project.yml@develop
     with:
-      project_id: 8
+      project_id: 13
     secrets: inherit
