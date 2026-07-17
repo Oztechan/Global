@@ -19,10 +19,11 @@
     "enabled": true,
     "commitMessageAction": "[{{ repository.owner }}/{{ repository.name }}#{{ repository.dependencyIssueId }}] Lock file maintenance"
   },
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": [
-        "{{ repository.iosProjectPath }}"
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/{{ repository.iosProjectPath }}/"
       ],
       "matchStrings": [
         "repositoryURL = \"https://github.com/(?<depName>[^/]+/[^\"/]+?)(?:\\.git)?\";\\s*requirement = \\{\\s*kind = exactVersion;\\s*version = (?<currentValue>[^;]+);"
