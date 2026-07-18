@@ -97,6 +97,17 @@ jobs:
           status_value: "🏗 PR Review"
           move_related_issues: false
 
+      # Assign the PR author (reads .github/auto_assign.yml — `addAssignees: author` — which is
+      # already synced into every repo). Replaces the retired hosted "Auto Assign" app; the action
+      # fetches the config via the API, so no checkout step is needed.
+      - name: 'Auto-assign the PR author'
+        if: |
+          github.event_name == 'pull_request' &&
+          (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
+        uses: kentaro-m/auto-assign-action@v2.0.2
+        with:
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN || github.token }}
+
       # Same nearest-milestone default for PRs; you can manually move a PR to a later milestone if it
       # won't make the current one. Never overrides a milestone already set.
       - name: 'Assign PR to nearest open milestone'
