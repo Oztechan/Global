@@ -1,0 +1,13 @@
+name: 'Disable Kotlin Incremental Native'
+description: 'Disables Kotlin/Native incremental compilation for CI by setting kotlin.incremental.native=false in the global Gradle properties (~/.gradle/gradle.properties).'
+runs:
+  using: 'composite'
+  steps:
+    - name: Disable Kotlin incremental native for CI
+      shell: bash
+      run: |
+        mkdir -p ~/.gradle
+        touch ~/.gradle/gradle.properties
+        # `-i.bak` works on both GNU and BSD/macOS sed, unlike bare `-i` (GNU) or `-i ''` (BSD)
+        sed -i.bak '/kotlin.incremental.native/d' ~/.gradle/gradle.properties && rm -f ~/.gradle/gradle.properties.bak
+        echo "kotlin.incremental.native=false" >> ~/.gradle/gradle.properties
