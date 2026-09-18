@@ -16,7 +16,7 @@ on:
 
 jobs:
   ProjectAutomations:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       # The nearest open milestone = the lowest version among the repo's open milestones (the soonest
       # release). Assigned natively below so the project's built-in Milestone field reflects it — this
