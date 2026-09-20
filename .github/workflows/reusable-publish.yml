@@ -15,7 +15,7 @@ on:
 jobs:
 
   PublishRelease:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     outputs:
       status: ${{ steps.status.outputs.status }}
     steps:
@@ -31,7 +31,7 @@ jobs:
         run: echo "status=success" >> $GITHUB_OUTPUT
 
   Notify:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: [ PublishRelease ]
     if: always()
     steps:
