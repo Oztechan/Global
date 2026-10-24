@@ -12,9 +12,22 @@ jobs:
     # by hand, and a push dismisses the old review, hence the approval on every synchronize.
     if: github.event.pull_request.user.login == 'renovate[bot]' && !contains(github.head_ref, 'major')
     runs-on: ubuntu-26.04
+    timeout-minutes: 60
     steps:
 
-      - name: Approve
+      - name: Approve once the required checks are green
         env:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        run: gh pr review ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --approve
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        # A branch with no required checks also exits 1, and that is not a red check.
+        run: |
+          result=$(gh pr checks "$PR" --repo "$REPO" --required --watch --fail-fast --interval 30 2>&1) && green=yes || green=no
+          echo "$result"
+
+          if [ "$green" = no ] && ! printf '%s' "$result" | grep -q 'no required checks'; then
+            echo "Required checks are not green, skipping the approval."
+            exit 0
+          fi
+
+          gh pr review "$PR" --repo "$REPO" --approve
