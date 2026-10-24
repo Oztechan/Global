@@ -18,8 +18,7 @@
   },
   "lockFileMaintenance": {
     "enabled": true,
-    "commitMessageAction": "[Oztechan/Global#12] Lock file maintenance",
-    "automerge": true
+    "commitMessageAction": "[Oztechan/Global#12] Lock file maintenance"
   },
   "customManagers": [
     {
@@ -34,15 +33,6 @@
     }
   ],
   "packageRules": [
-    {
-      "description": "Everything below a major bump is gated by CI, not by reading the diff.",
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "digest"
-      ],
-      "automerge": true
-    },
     {
       "groupName": "kotlin",
       "matchPackageNames": [
