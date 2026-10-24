@@ -1,0 +1,20 @@
+name: Renovate Auto Approve
+
+on:
+  workflow_call:
+    secrets:
+      PERSONAL_ACCESS_TOKEN:
+        required: true
+
+jobs:
+  RenovateAutoApprove:
+    # GITHUB_TOKEN cannot satisfy a code owner review, so approve as the code owner. Majors are read
+    # by hand, and a push dismisses the old review, hence the approval on every synchronize.
+    if: github.event.pull_request.user.login == 'renovate[bot]' && !contains(github.head_ref, 'major')
+    runs-on: ubuntu-26.04
+    steps:
+
+      - name: Approve
+        env:
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: gh pr review ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --approve
