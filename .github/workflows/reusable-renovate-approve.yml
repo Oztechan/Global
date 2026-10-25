@@ -20,14 +20,22 @@ jobs:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           PR: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
-        # A branch with no required checks also exits 1, and that is not a red check.
+        # `gh pr checks` exits 0 even when a check failed, and a cancelled job is not reported as a
+        # failure either, so read the buckets rather than the exit code.
         run: |
-          result=$(gh pr checks "$PR" --repo "$REPO" --required --watch --fail-fast --interval 30 2>&1) && green=yes || green=no
-          echo "$result"
+          gh pr checks "$PR" --repo "$REPO" --required --watch --interval 30 || true
 
-          if [ "$green" = no ] && ! printf '%s' "$result" | grep -q 'no required checks'; then
-            echo "Required checks are not green, skipping the approval."
+          if ! checks=$(gh pr checks "$PR" --repo "$REPO" --required --json bucket,name 2>&1); then
+            printf '%s\n' "$checks"
+            printf '%s' "$checks" | grep -q 'no required checks' || exit 1
+            checks='[]'
+          fi
+
+          red=$(printf '%s' "$checks" | jq -r '[.[] | select(.bucket != "pass" and .bucket != "skipping")] | map(.name) | join(", ")')
+
+          if [ -n "$red" ]; then
+            echo "Not green, skipping the approval: $red"
             exit 0
           fi
 
-          gh pr review "$PR" --repo "$REPO" --approve
+          gh pr review "$PR" --repo "$REPO" --approve --body "All required checks passed, approving automatically."
