@@ -8,34 +8,19 @@ on:
 
 jobs:
   RenovateAutoApprove:
-    # GITHUB_TOKEN cannot satisfy a code owner review, so approve as the code owner. Majors are read
-    # by hand, and a push dismisses the old review, hence the approval on every synchronize.
+    # The "all required checks are green" gate is done by the CALLER: it adds a job that `needs` its
+    # CI jobs and only then calls this workflow — so there is nothing to watch or poll here, and the
+    # job can never time out. This step just approves as the code owner (GITHUB_TOKEN cannot). Majors
+    # are read by hand; a push dismisses the review, so the caller re-runs this on every synchronize.
+    # The author/non-major check here is a safety net in case a caller forgets to guard its `if`.
     if: github.event.pull_request.user.login == 'renovate[bot]' && !contains(github.head_ref, 'major')
     runs-on: ubuntu-26.04
-    timeout-minutes: 60
     steps:
 
-      - name: Approve once the required checks are green
+      - name: Approve
         env:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           PR: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
-        # `gh pr checks` exits 0 even when a check failed, and a cancelled job is not reported as a
-        # failure either, so read the buckets rather than the exit code.
         run: |
-          gh pr checks "$PR" --repo "$REPO" --required --watch --interval 30 || true
-
-          if ! checks=$(gh pr checks "$PR" --repo "$REPO" --required --json bucket,name 2>&1); then
-            printf '%s\n' "$checks"
-            printf '%s' "$checks" | grep -q 'no required checks' || exit 1
-            checks='[]'
-          fi
-
-          red=$(printf '%s' "$checks" | jq -r '[.[] | select(.bucket != "pass" and .bucket != "skipping")] | map(.name) | join(", ")')
-
-          if [ -n "$red" ]; then
-            echo "Not green, skipping the approval: $red"
-            exit 0
-          fi
-
           gh pr review "$PR" --repo "$REPO" --approve --body "All required checks passed, approving automatically."
