@@ -23,4 +23,14 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
         run: |
+          # Skip if a human has pushed any commit: the PR is then a custom change to review/merge by
+          # hand, not an unattended Renovate update. REST .author.type is "Bot" for Renovate and
+          # "User" for a person, and (unlike gh's .authors) it is not affected by the Co-authored-by
+          # trailer some renovate.json configs add, so it won't false-positive on every PR.
+          human=$(gh api "repos/$REPO/pulls/$PR/commits" --paginate --jq '[.[] | select(.author.type == "User")] | length')
+          if [ "$human" != "0" ]; then
+            echo "PR has $human human-authored commit(s) — treating as a custom PR, skipping auto-approval."
+            exit 0
+          fi
+
           gh pr review "$PR" --repo "$REPO" --approve --body "All required checks passed, approving automatically."
