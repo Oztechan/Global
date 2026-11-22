@@ -65,6 +65,17 @@
       "matchPackageNames": [
         "/^com.github.submob:/"
       ]
+    },
+    {
+      "description": "CCC and AdTrack build these from submodules, so the catalog versions are only a fallback and bumping them changes nothing.",
+      "matchRepositories": [
+        "Oztechan/CCC",
+        "Oztechan/AdTrack"
+      ],
+      "matchPackageNames": [
+        "/^com\\.github\\.submob[.:]/"
+      ],
+      "enabled": false
     }
   ]
 }
