@@ -20,17 +20,28 @@ jobs:
         with:
           fetch-depth: 0 # the version is the commit count
 
-      # The consumers pin these actions by hash and read the version from the trailing comment, so
-      # every merge needs a tag for Renovate to offer one. Done inline rather than from the
-      # tag-triggered publish workflow, because tags pushed with GITHUB_TOKEN never trigger other
-      # workflows. --generate-notes fills the body from the merged pull requests.
-      - name: Tag and release
+      # There is no build here to read a version from, so the commit count plays that part, the way
+      # it does in the SubMob libraries. It continues past the v1.0.7 that was tagged by hand.
+      - name: Resolve version
+        id: version
+        run: echo "version=1.0.$(git rev-list --count --first-parent HEAD)" >> $GITHUB_OUTPUT
+
+      # Tags every merge and cuts the matching GitHub release. The consumers pin these actions by
+      # hash and read the version from the trailing comment, so a tag has to exist per commit for
+      # Renovate to offer one. Done inline rather than from a tag-triggered workflow, because tags
+      # pushed with GITHUB_TOKEN never trigger other workflows. --generate-notes fills the body
+      # from the merged PRs.
+      - name: PublishRelease
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          version="v1.0.$(git rev-list --count --first-parent HEAD)"
-          if gh release view "$version" >/dev/null 2>&1; then
-            echo "$version already exists, nothing to do."
-          else
-            gh release create "$version" --target "$GITHUB_SHA" --generate-notes
-          fi
+        run: gh release create "v${{ steps.version.outputs.version }}" --target "$GITHUB_SHA" --generate-notes
+
+      - name: Notify slack fail
+        if: failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@373da97827332b19e753c84d1e5b7937dbe0fbfa # v2
+        with:
+          channel: global-github
+          status: FAILED
+          color: danger
