@@ -43,7 +43,7 @@ jobs:
 
       - name: Notify slack fail
         if: false == (needs.PublishRelease.outputs.status == 'success')
-        uses: voxmedia/github-action-slack-notify-build@v2
+        uses: voxmedia/github-action-slack-notify-build@373da97827332b19e753c84d1e5b7937dbe0fbfa # v2
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
