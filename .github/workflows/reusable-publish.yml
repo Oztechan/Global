@@ -16,15 +16,20 @@ jobs:
 
   PublishRelease:
     runs-on: ubuntu-26.04
+    permissions:
+      contents: write # cut the release
     outputs:
       status: ${{ steps.status.outputs.status }}
     steps:
 
+      # The tag that triggered the caller already exists, so this only cuts the release for it.
+      # --generate-notes fills the body from the merged pull requests.
       - name: PublishRelease
-        uses: marvinpinto/action-automatic-releases@919008cf3f741b179569b7a6fb4d8860689ab7f0 # v1.2.1
-        with:
-          repo_token: ${{ secrets.REPO_TOKEN }}
-          prerelease: false
+        env:
+          GH_TOKEN: ${{ secrets.REPO_TOKEN }}
+          TAG: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: gh release create "$TAG" --repo "$REPO" --generate-notes
 
       - name: Set Job Status
         id: status
@@ -38,7 +43,7 @@ jobs:
 
       - name: Notify slack fail
         if: false == (needs.PublishRelease.outputs.status == 'success')
-        uses: voxmedia/github-action-slack-notify-build@373da97827332b19e753c84d1e5b7937dbe0fbfa # v2
+        uses: voxmedia/github-action-slack-notify-build@v2
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
