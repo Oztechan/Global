@@ -28,6 +28,8 @@ jobs:
       github.event_name == 'pull_request' &&
       github.event.pull_request.user.login == 'renovate[bot]' &&
       !contains(github.head_ref, 'major')
-    uses: Oztechan/Global/.github/workflows/reusable-renovate-approve.yml@bd0bde4c7b7997d28bf6f29778b0f2f46cd5133f
+    # Tracks the branch, not a tag: a version here would make Renovate bump it, which tags a new
+    # version, which Renovate bumps again.
+    uses: Oztechan/Global/.github/workflows/reusable-renovate-approve.yml@develop
     secrets:
       PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

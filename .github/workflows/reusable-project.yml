@@ -41,7 +41,7 @@ jobs:
         if: |
           github.event_name == 'issues' &&
           (github.event.action == 'opened' ||  github.event.action == 'reopened')
-        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        uses: leonsteinhaeuser/project-beta-automations@939000fb1900c9fc4f7b5058a09d9f833ebc6859 # v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           organization: ${{ inputs.organization }}
@@ -70,7 +70,7 @@ jobs:
         if: |
           github.event_name == 'pull_request' &&
           (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
-        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        uses: leonsteinhaeuser/project-beta-automations@939000fb1900c9fc4f7b5058a09d9f833ebc6859 # v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           organization: ${{ inputs.organization }}
@@ -88,7 +88,7 @@ jobs:
           (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
         env:
           MOVE_RELATED_ISSUES: "false"
-        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        uses: leonsteinhaeuser/project-beta-automations@939000fb1900c9fc4f7b5058a09d9f833ebc6859 # v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           organization: ${{ inputs.organization }}
@@ -104,7 +104,7 @@ jobs:
         if: |
           github.event_name == 'pull_request' &&
           (github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'reopened')
-        uses: kentaro-m/auto-assign-action@v2.0.2
+        uses: kentaro-m/auto-assign-action@0a2c53d3721e4c5cfcce6afd4014aecc337979f6 # v2.0.2
         with:
           repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN || github.token }}
 
@@ -127,7 +127,7 @@ jobs:
         if: |
           github.event_name == 'pull_request' &&
           github.event.action == 'converted_to_draft'
-        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        uses: leonsteinhaeuser/project-beta-automations@939000fb1900c9fc4f7b5058a09d9f833ebc6859 # v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           organization: ${{ inputs.organization }}
@@ -141,7 +141,7 @@ jobs:
           github.event_name == 'pull_request' &&
           github.event.action == 'closed' &&
           github.event.pull_request.merged == true
-        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        uses: leonsteinhaeuser/project-beta-automations@939000fb1900c9fc4f7b5058a09d9f833ebc6859 # v2.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           organization: ${{ inputs.organization }}
