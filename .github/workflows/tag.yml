@@ -1,0 +1,36 @@
+name: Tag Develop
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  Tag:
+
+    runs-on: ubuntu-26.04
+
+    permissions:
+      contents: write # create the release tag
+
+    steps:
+
+      - name: Clone Repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # the version is the commit count
+
+      # The consumers pin these actions by hash and read the version from the trailing comment, so
+      # every merge needs a tag for Renovate to offer one. Done inline rather than from the
+      # tag-triggered publish workflow, because tags pushed with GITHUB_TOKEN never trigger other
+      # workflows. --generate-notes fills the body from the merged pull requests.
+      - name: Tag and release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="v1.0.$(git rev-list --count --first-parent HEAD)"
+          if gh release view "$version" >/dev/null 2>&1; then
+            echo "$version already exists, nothing to do."
+          else
+            gh release create "$version" --target "$GITHUB_SHA" --generate-notes
+          fi
